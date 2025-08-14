@@ -39,7 +39,7 @@ func NewEditor() *Editor {
 		AddItem(e.chatView, 0, 1, false).
 		AddItem(e.chatInput, 3, 0, true)
 	e.chatPanel.SetBorder(true).SetTitle("AI Chat")
-	
+
 	// Set up special input handling for chat view
 	e.chatView.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyCtrlC {
@@ -48,7 +48,7 @@ func NewEditor() *Editor {
 		}
 		return event
 	})
-	
+
 	// Enable mouse capture in the application
 	e.app.EnableMouse(true)
 
@@ -113,14 +113,14 @@ func (e *Editor) render() {
 			if fileY == e.cy && e.mode == ModeInsert {
 				// Special handling for the cursor line to draw the cursor manually
 				e.calculateRx()
-				
+
 				// Safe substringing for horizontal scroll
 				if e.colOffset > len(line) {
 					line = ""
 				} else {
 					line = line[e.colOffset:]
 				}
-				
+
 				// Truncate line to fit view width
 				if len(line) > width {
 					line = line[:width]
@@ -130,7 +130,7 @@ func (e *Editor) render() {
 				if cursorX < 0 {
 					cursorX = 0
 				}
-				
+
 				// Invert the character at the cursor position
 				if cursorX < len(line) {
 					line = fmt.Sprintf("%s[white:black]%c[-:-]%s", line[:cursorX], line[cursorX], line[cursorX+1:])
@@ -244,7 +244,7 @@ func (e *Editor) globalInput(event *tcell.EventKey) *tcell.EventKey {
 	if e.app.GetFocus() == e.chatInput {
 		return event
 	}
-	
+
 	// If chat view has focus, handle special keys
 	if e.app.GetFocus() == e.chatView {
 		if event.Key() == tcell.KeyCtrlC {
@@ -498,7 +498,7 @@ func (e *Editor) sendChat(userInput string) {
 		// Call the API
 		ctx := context.Background()
 		response, err := callGemini(ctx, apiKey, history[:len(history)-1], prompt)
-		
+
 		e.app.QueueUpdateDraw(func() {
 			if err != nil {
 				// Replace thinking message with error
@@ -517,10 +517,10 @@ func (e *Editor) refreshChatView() {
 		return
 	}
 	var b strings.Builder
-	
+
 	// Number the AI responses for selection
 	aiResponseCount := 0
-	
+
 	for _, m := range e.chatHistory {
 		if m.Role == "user" {
 			b.WriteString(fmt.Sprintf("[yellow]You:[-] %s\n", tview.Escape(m.Content)))
@@ -590,9 +590,9 @@ func (e *Editor) insertString(s string) {
 	if len(lines) == 0 {
 		return
 	}
-	
+
 	e.pushUndo()
-	
+
 	// Insert first line at cursor position
 	line := e.buffer.Lines[e.cy]
 	if e.cx > len(line) {
@@ -600,7 +600,7 @@ func (e *Editor) insertString(s string) {
 	}
 	e.buffer.Lines[e.cy] = line[:e.cx] + lines[0] + line[e.cx:]
 	e.cx += len(lines[0])
-	
+
 	// If we have more than one line, insert the rest as new lines
 	if len(lines) > 1 {
 		for _, l := range lines[1:] {
@@ -611,7 +611,7 @@ func (e *Editor) insertString(s string) {
 			e.cx = len(l)
 		}
 	}
-	
+
 	e.buffer.Dirty = true
 }
 

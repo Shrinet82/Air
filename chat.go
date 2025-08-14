@@ -99,4 +99,3 @@ func callGemini(ctx context.Context, apiKey string, history []ChatMessage, userM
 
 	return gr.Candidates[0].Content.Parts[0].Text, nil
 }
-

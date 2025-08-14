@@ -18,7 +18,7 @@ func showHelp() {
 		fmt.Println("For full documentation, see README.md")
 		return
 	}
-	
+
 	fmt.Println(string(content))
 }
 
@@ -47,4 +47,3 @@ func main() {
 		os.Exit(1)
 	}
 }
-

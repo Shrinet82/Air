@@ -17,7 +17,7 @@ func TestNewBuffer(t *testing.T) {
 	if buffer.Dirty {
 		t.Error("New buffer should not be marked as dirty")
 	}
-	
+
 	// Test BaseName function
 	if buffer.BaseName() != "[No Name]" {
 		t.Errorf("Expected unnamed buffer to have BaseName '[No Name]', got: %s", buffer.BaseName())
