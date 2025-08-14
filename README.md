@@ -1,5 +1,7 @@
 # AIR Editor - AI-Integrated Text Editor
 
+![Build Status](https://github.com/Shrinet82/Air/workflows/AIR%20Editor%20CI/badge.svg)
+
 AIR is a terminal-based text editor with integrated AI capabilities, allowing you to seamlessly interact with a Gemini AI assistant while editing your files.
 
 ## Table of Contents
